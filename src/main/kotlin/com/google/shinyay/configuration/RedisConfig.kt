@@ -8,5 +8,13 @@ import org.springframework.data.redis.core.RedisTemplate
 @Configuration
 class RedisConfig {
 
+    @Bean
+    fun jedisConnectionFactory() = JedisConnectionFactory()
 
+    @Bean
+    fun redisTemplate(): RedisTemplate<*, *> {
+        val template = RedisTemplate<String, Any>()
+        template.setConnectionFactory(jedisConnectionFactory())
+        return template
+    }
 }
